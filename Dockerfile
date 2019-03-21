@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:8-slim #jessie
 MAINTAINER Kamer DINC <merkjs@aol.com>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -10,8 +10,12 @@ WORKDIR /root/work/
 # install git
 RUN apt-get -y update && apt-get -y install git && apt-get -y install git-ftp
 
-# slim down image
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/man/?? /usr/share/man/??_*
-
-# configure the image to send insecure requests regardless of the ftp server ssl
-RUN git config git-ftp.insecure 1
+RUN apt-get -y update \
+&& apt-get -y install git \
+                      git-ftp
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/* \
+          /tmp/* \ 
+          /var/tmp/* \
+          /usr/share/man/?? \ 
+          /usr/share/man/??_*
